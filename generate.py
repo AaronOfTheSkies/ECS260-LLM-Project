@@ -1,8 +1,11 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
+import datetime
 
+t1 = datetime.datetime.now().timestamp()
 #Requires installation of transformers and setuptools
 model = AutoModelForCausalLM.from_pretrained(
-    "codellama/CodeLlama-7b-hf"
+    "codellama/CodeLlama-7b-hf",
+    local_files_only = True
 )
 tokenizer = AutoTokenizer.from_pretrained("codellama/CodeLlama-7b-hf")
 tokenizer.pad_token = tokenizer.eos_token
@@ -14,3 +17,5 @@ results = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
 for result in results:
     print(result)
     print("\n")
+t2 = datetime.datetime.now().timestamp() - t1
+print("Time: " + str(t2))
