@@ -47,6 +47,7 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
                 exec_globals = {}
                 with swallow_io():
                     with time_limit(timeout):
+                        exec(check_program, exec_globals)
                         result.append("passed")
             except TimeoutException:
                 result.append("timed out")
@@ -57,14 +58,10 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
             shutil.rmtree = rmtree
             os.rmdir = rmdir
             os.chdir = chdir
-    print("here4")
     manager = multiprocess.Manager()
-    print("here5")
     result = manager.list()
-    print("here3")
     p = multiprocess.Process(target=unsafe_execute)
     p.start()
-    print("here2")
     p.join(timeout=timeout + 1)
     if p.is_alive():
         p.kill()
