@@ -48,7 +48,7 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
                 with swallow_io():
                     with time_limit(timeout):
                         exec(check_program, exec_globals)
-                        result.append("passed")
+                    result.append("passed")
             except TimeoutException:
                 result.append("timed out")
             except BaseException as e:
