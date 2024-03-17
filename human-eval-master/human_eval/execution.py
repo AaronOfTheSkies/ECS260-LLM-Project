@@ -38,7 +38,7 @@ def check_correctness(problem: Dict, completion: str, timeout: float,
 
             # Construct the check program and run it.
             check_program = (
-                problem["prompt"] + completion + "\n" +
+                completion + "\n" +
                 problem["test"] + "\n" +
                 f"check({problem['entry_point']})"
             )
